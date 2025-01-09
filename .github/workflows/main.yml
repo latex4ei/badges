@@ -104,7 +104,7 @@ jobs:
             // Construct a Shields URL with custom color
             const format = 'svg'; // or 'png'
             const url = `https://img.shields.io/github/last-commit/latex4ei/${r.name}.${format}?&color=${r.color}`;
-            const outFile = `badges/${r.name}.${format}`;
+            const outFile = `last-commit/${r.name}.${format}`;
       
             console.log(`Generating badge for ${r.name} (days ago: ${r.diffDays}, color: ${r.color})`);
             execSync(`curl -sL "${url}" -o "${outFile}"`);
