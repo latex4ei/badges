@@ -42,7 +42,6 @@ jobs:
               page++;
             }
 
-            // We'll build an array of { name, diffDays, color }
             const results = [];
             for (const repo of repos) {
               // Optionally skip archived repos:
@@ -89,6 +88,7 @@ jobs:
             // Return data as JSON
             return results;
 
+      # 3) Generate the badges using shields.io
       - name: Generate badges
         run: |
           echo '${{ steps.gather.outputs.result }}' > repos.json
@@ -103,7 +103,7 @@ jobs:
           for (const r of repos) {
             // Construct a Shields URL with custom color
             const format = 'svg'; // or 'png'
-            const url = `https://img.shields.io/github/last-commit/latex4ei/${r.name}.${format}?label=Last%20Commit&color=${r.color}`;
+            const url = `https://img.shields.io/github/last-commit/latex4ei/${r.name}.${format}?&color=${r.color}`;
             const outFile = `badges/${r.name}.${format}`;
       
             console.log(`Generating badge for ${r.name} (days ago: ${r.diffDays}, color: ${r.color})`);
@@ -113,7 +113,6 @@ jobs:
 
 
       # 4) Deploy all the files (including badges/) to gh-pages
-      #    We'll use peaceiris/actions-gh-pages to push them.
       - name: Deploy badges to gh-pages
         uses: peaceiris/actions-gh-pages@v3
         with:
