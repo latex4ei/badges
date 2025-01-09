@@ -89,33 +89,28 @@ jobs:
             // Return data as JSON
             return results;
 
-      # 3) Create a directory of badges by downloading from Shields.io
       - name: Generate badges
         run: |
           echo '${{ steps.gather.outputs.result }}' > repos.json
-
+          
           mkdir -p badges
-
-          node <<EOF
+          node <<'EOF'
           const fs = require('fs');
           const { execSync } = require('child_process');
-
+      
           const repos = JSON.parse(fs.readFileSync('repos.json', 'utf8'));
-
+      
           for (const r of repos) {
-            // Construct a Shields URL for last-commit, but override the color
-            // Example (SVG):
-            //   https://img.shields.io/github/last-commit/YOUR_ORG/REPO?label=Last%20Commit&color=red
-            // If you want PNG, you can do:
-            //   https://img.shields.io/github/last-commit/YOUR_ORG/REPO.png?label=Last%20Commit&color=red
+            // Construct a Shields URL with custom color
             const format = 'svg'; // or 'png'
-            const url = `https://img.shields.io/github/last-commit/YOUR_ORG/${r.name}.${format}?label=Last%20Commit&color=${r.color}`;
+            const url = `https://img.shields.io/github/last-commit/latex4ei/${r.name}.${format}?label=Last%20Commit&color=${r.color}`;
             const outFile = `badges/${r.name}.${format}`;
-
+      
             console.log(`Generating badge for ${r.name} (days ago: ${r.diffDays}, color: ${r.color})`);
-            execSync(`curl -sL '${url}' -o '${outFile}'`);
+            execSync(`curl -sL "${url}" -o "${outFile}"`);
           }
           EOF
+
 
       # 4) Deploy all the files (including badges/) to gh-pages
       #    We'll use peaceiris/actions-gh-pages to push them.
