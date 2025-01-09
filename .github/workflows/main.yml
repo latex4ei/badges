@@ -113,10 +113,11 @@ jobs:
 
 
       # 4) Deploy all the files (including badges/) to gh-pages
-      - name: Deploy badges to gh-pages
-        uses: peaceiris/actions-gh-pages@v3
+      - name: Deploy
+        if: github.ref == 'refs/heads/master' || github.ref == 'refs/heads/main'
+        uses: JamesIves/github-pages-deploy-action@v4.5.0
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: .
-          publish_branch: gh-pages
-          force_orphan: true  # Creates a fresh commit history on gh-pages
+          branch: gh-pages
+          folder: .
+          single-commit: true
+          silent: true
