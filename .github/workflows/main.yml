@@ -93,7 +93,7 @@ jobs:
         run: |
           echo '${{ steps.gather.outputs.result }}' > repos.json
           
-          mkdir -p badges
+          mkdir -p last-commit
           node <<'EOF'
           const fs = require('fs');
           const { execSync } = require('child_process');
