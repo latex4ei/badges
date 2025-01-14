@@ -3,7 +3,7 @@ name: "Generate Custom Last Commit Badges"
 on:
   # Runs every Monday at 03:00 UTC
   schedule:
-    - cron: "0 3 * * 1"
+    - cron: "0 3 * * *"
   workflow_dispatch:
 
 jobs:
