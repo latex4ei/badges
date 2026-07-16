@@ -64,13 +64,13 @@ jobs:
                   
                   // Decide color based on how old the last commit is
                   let color = 'red';
-                  if (diffDays < 90) {
+                  if (diffDays < 180) {
                     color = 'brightgreen';
-                  } else if (diffDays < 365) {
+                  } else if (diffDays < 730) {
                     color = 'green';
-                  } else if (diffDays < 1095) {
+                  } else if (diffDays < 1460) {
                     color = 'yellowgreen';
-                  } else if (diffDays < 1825) {
+                  } else if (diffDays < 2555) {
                     color = 'yellow';
                   }
 
